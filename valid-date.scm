@@ -43,11 +43,18 @@
   (if(and(<= min day)(>= max day))
      #t
      #f))
-  (if(and(or(= 4 month)(= 6 month)(= 9 month)(= 11 month))
+
+  (define (is-member-30? num)
+    (member? num '(4 6 9 11)))
+  
+  (define (is-member-31? num)
+    (member? num '(1 3 5 7 8 10 12)))
+  
+  (if(and(is-member-30? month)
        (day-min-max-set? 1 day 30 month))
      #t 
-     (if(and(or(= 1 month)(= 3 month)(= 5 month)(= 7 month)(= 8 month)
-               (= 10 month)(= 12 month))(day-min-max-set? 1 day 31 month))
+     (if(and(is-member-31? month)
+            (day-min-max-set? 1 day 31 month))
         #t
         #f)))
 
