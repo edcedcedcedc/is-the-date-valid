@@ -46,7 +46,7 @@ let compareMonthDay = (month, day) => {
     return min <= day && max >= day ? true : false;
   };
   let isMember30 = (month) => {
-    let arr = [4, 6, 7, 9, 11];
+    let arr = [4, 6, 9, 11];
     let isMember = arr.every(function (num) {
       return num != month;
     });
