@@ -45,28 +45,29 @@ let compareMonthDay = (month, day) => {
   let dayMinMaxSet = (min, day, max, month) => {
     return min <= day && max >= day ? true : false;
   };
-  if (
-    (month == 4 || month == 6 || month == 7 || month == 9 || month == 11) &&
-    dayMinMaxSet(1, day, 30, month)
-  ) {
+  let isMember30 = (month) => {
+    let arr = [4, 6, 7, 9, 11];
+    let isMember = arr.every(function (num) {
+      return num != month;
+    });
+    return !isMember;
+  };
+  let isMember31 = (month) => {
+    let arr = [1, 3, 5, 7, 8, 10, 12];
+    let isMember = arr.every(function (num) {
+      return num != month;
+    });
+    return !isMember;
+  };
+  if (isMember30(month) && dayMinMaxSet(1, day, 30, month)) {
     return true;
-  } else if (
-    (month == 1 ||
-      month == 3 ||
-      month == 5 ||
-      month == 7 ||
-      month == 8 ||
-      month == 10 ||
-      month == 12) &&
-    dayMinMaxSet(1, day, 31, month)
-  ) {
+  } else if (isMember31(month) && dayMinMaxSet(1, day, 31, month)) {
     return true;
   } else {
     return false;
   }
 };
 
-debugger;
 let validDate = (month, day, year) => {
   if (monthDayYearValid(month, day, year)) {
     if (compareMonthDay(month, day) || leapYear(year)) {
@@ -104,3 +105,8 @@ console.log(validDate(20, 4, 1776));
 console.log(validDate(5, 0, 1992));
 console.log(validDate(2, 29, 1900));
 console.log(validDate(2, 29, 2000));
+
+debugger;
+
+// console.log(isMember(5));
+// console.log(arr.every(predicate));
